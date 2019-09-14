@@ -1,0 +1,2634 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Sentiment Analysis}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}554}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{from} \PY{n+nn}{os} \PY{k}{import} \PY{n}{listdir}
+          \PY{k+kn}{from} \PY{n+nn}{os}\PY{n+nn}{.}\PY{n+nn}{path} \PY{k}{import} \PY{n}{join}\PY{p}{,} \PY{n}{isfile}
+          \PY{k+kn}{from} \PY{n+nn}{tqdm} \PY{k}{import} \PY{n}{tqdm}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+          \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+          \PY{k+kn}{from} \PY{n+nn}{collections} \PY{k}{import} \PY{n}{Counter}
+          \PY{k+kn}{import} \PY{n+nn}{pickle}
+          \PY{k+kn}{import} \PY{n+nn}{sys}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+          \PY{k+kn}{import} \PY{n+nn}{nltk}
+          \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{corpus} \PY{k}{import} \PY{n}{stopwords}
+          \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{classify} \PY{k}{import} \PY{n}{SklearnClassifier}
+          \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{formula}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{smf}
+          
+          \PY{k+kn}{from} \PY{n+nn}{\PYZus{}\PYZus{}future\PYZus{}\PYZus{}} \PY{k}{import} \PY{n}{absolute\PYZus{}import}
+          \PY{k+kn}{from} \PY{n+nn}{\PYZus{}\PYZus{}future\PYZus{}\PYZus{}} \PY{k}{import} \PY{n}{division}
+          \PY{k+kn}{from} \PY{n+nn}{\PYZus{}\PYZus{}future\PYZus{}\PYZus{}} \PY{k}{import} \PY{n}{print\PYZus{}function}
+          
+          \PY{k+kn}{from} \PY{n+nn}{wordcloud} \PY{k}{import} \PY{n}{WordCloud}\PY{p}{,}\PY{n}{STOPWORDS}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{ticker} \PY{k}{as} \PY{n+nn}{plticker}
+          \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+          \PY{k+kn}{from} \PY{n+nn}{pylab} \PY{k}{import} \PY{n}{rcParams}
+          \PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{20}
+          
+          \PY{c+c1}{\PYZsh{} Input data files are available in the \PYZdq{}../input/\PYZdq{} directory.}
+          \PY{c+c1}{\PYZsh{} For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory}
+          
+          \PY{k+kn}{from} \PY{n+nn}{multiprocessing} \PY{k}{import} \PY{n}{Pool}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{o}{\PYZpc{}}\PY{k}{time}
+        \PY{n}{path} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{../data/financial\PYZhy{}news\PYZhy{}dataset\PYZhy{}master/20061020\PYZus{}20131126\PYZus{}bloomberg\PYZus{}news/}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{news\PYZus{}dataset} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{news\PYZus{}article} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{n}{date\PYZus{}headlines} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        
+        \PY{k}{for} \PY{n}{date} \PY{o+ow}{in} \PY{n}{tqdm}\PY{p}{(}\PY{n}{listdir}\PY{p}{(}\PY{n}{path}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{o+ow}{not} \PY{n}{isfile}\PY{p}{(}\PY{n}{join}\PY{p}{(}\PY{n}{path}\PY{p}{,} \PY{n}{date}\PY{p}{)}\PY{p}{)}\PY{p}{:} 
+                \PY{n}{date\PYZus{}headlines}\PY{p}{[}\PY{n}{date}\PY{p}{]} \PY{o}{=} \PY{n}{listdir}\PY{p}{(}\PY{n}{join}\PY{p}{(}\PY{n}{path}\PY{p}{,} \PY{n}{date}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+  0\%|          | 0/1945 [00:00<?, ?it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CPU times: user 0 ns, sys: 0 ns, total: 0 ns
+Wall time: 5.48 µs
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 1945/1945 [00:23<00:00, 81.67it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{o}{\PYZpc{}}\PY{k}{time}
+        \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{fraction} \PY{o}{=} \PY{l+m+mi}{20}
+        \PY{n}{news\PYZus{}dataset} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        
+        \PY{k}{for} \PY{n}{date}\PY{p}{,} \PY{n}{headlines} \PY{o+ow}{in} \PY{n}{tqdm}\PY{p}{(}\PY{n}{date\PYZus{}headlines}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{k}{for} \PY{n}{headline} \PY{o+ow}{in} \PY{n}{headlines}\PY{p}{:} 
+                \PY{k}{if} \PY{p}{(}\PY{n}{count} \PY{o}{\PYZpc{}} \PY{n}{fraction}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                    \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/financial\PYZhy{}news\PYZhy{}dataset\PYZhy{}master/20061020\PYZus{}20131126\PYZus{}bloomberg\PYZus{}news/}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{date} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{headline}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+                        \PY{c+c1}{\PYZsh{}news\PYZus{}dataset.append(\PYZob{}\PYZsq{}Date\PYZsq{}: date, \PYZsq{}Headlines\PYZsq{}: headline, \PYZsq{}Content\PYZsq{}: f.readlines()\PYZcb{}, ignore\PYZus{}index= True)}
+                        \PY{n}{news\PYZus{}dataset}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{date}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Headlines}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{headline}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Content}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{f}\PY{o}{.}\PY{n}{readlines}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}
+                \PY{n}{count} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+  0\%|          | 1/1944 [00:00<04:58,  6.51it/s]
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CPU times: user 0 ns, sys: 0 ns, total: 0 ns
+Wall time: 4.77 µs
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 1944/1944 [01:06<00:00, 29.29it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{news\PYZus{}dataset} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{news\PYZus{}dataset}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}date\PYZus{}headlines = pd.DataFrame(date\PYZus{}headlines)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{news\PYZus{}dataset}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}                                              Content        Date  \textbackslash{}
+        0  [-- \textbackslash{}n, Ivory Coast Keeps Cocoa Export Tax Bel{\ldots}  2011-10-06   
+        1  [-- \textbackslash{}n, Trichet Says ECB to Offer Longer Loans{\ldots}  2011-10-06   
+        2  [-- \textbackslash{}n, Saft Chief Says Infrastructure So Far {\ldots}  2011-10-06   
+        3  [-- \textbackslash{}n, South Africa Daybook: Mining Output, Z{\ldots}  2011-10-06   
+        4  [-- \textbackslash{}n, U.S. Stock Options With Biggest Change{\ldots}  2011-10-06   
+        
+                                                   Headlines  
+        0  ivory-coast-keeps-cocoa-export-tax-below-22-do{\ldots}  
+        1  richet-says-ecb-to-offer-longer-loans-will-res{\ldots}  
+        2  saft-chief-says-infrastructure-so-far-proving-{\ldots}  
+        3  south-africa-daybook-business-confidence-elect{\ldots}  
+        4  u-s-stock-options-with-biggest-changes-in-impl{\ldots}  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{def} \PY{n+nf}{wordcloud\PYZus{}draw}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{words} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+             \PY{n}{cleaned\PYZus{}word} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{n}{word} \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{words}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}
+                                     \PY{k}{if} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{word}
+                                         \PY{o+ow}{and} \PY{o+ow}{not} \PY{n}{word}\PY{o}{.}\PY{n}{startswith}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{@}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                                         \PY{o+ow}{and} \PY{o+ow}{not} \PY{n}{word}\PY{o}{.}\PY{n}{startswith}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                                         \PY{o+ow}{and} \PY{n}{word} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RT}\PY{l+s+s1}{\PYZsq{}}
+                                     \PY{p}{]}\PY{p}{)}
+             \PY{n}{wordcloud} \PY{o}{=} \PY{n}{WordCloud}\PY{p}{(}\PY{n}{stopwords}\PY{o}{=}\PY{n}{STOPWORDS}\PY{p}{,}
+                               \PY{n}{background\PYZus{}color}\PY{o}{=}\PY{n}{color}\PY{p}{,}
+                               \PY{n}{width}\PY{o}{=}\PY{l+m+mi}{2500}\PY{p}{,}
+                               \PY{n}{height}\PY{o}{=}\PY{l+m+mi}{2000}
+                              \PY{p}{)}\PY{o}{.}\PY{n}{generate}\PY{p}{(}\PY{n}{cleaned\PYZus{}word}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{,} \PY{l+m+mi}{13}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{wordcloud}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{General}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{wordcloud\PYZus{}draw}\PY{p}{(}\PY{n}{news\PYZus{}dataset}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Headlines}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+General
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{sentiment\PYZus{}list} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/peripheral\PYZus{}data/inquirerbasic.xls}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{sentiment\PYZus{}list}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}          Entry Source Positiv  Negativ Pstv Affil  Ngtv Hostile Strong Power  \textbackslash{}
+        0            A  H4Lvd     NaN      NaN  NaN   NaN   NaN     NaN    NaN   NaN   
+        1      ABANDON  H4Lvd     NaN  Negativ  NaN   NaN  Ngtv     NaN    NaN   NaN   
+        2  ABANDONMENT     H4     NaN  Negativ  NaN   NaN   NaN     NaN    NaN   NaN   
+        3        ABATE  H4Lvd     NaN  Negativ  NaN   NaN   NaN     NaN    NaN   NaN   
+        4    ABATEMENT    Lvd     NaN      NaN  NaN   NaN   NaN     NaN    NaN   NaN   
+        
+                                 {\ldots}                         Anomie NegAff PosAff  \textbackslash{}
+        0                        {\ldots}                            NaN    NaN    NaN   
+        1                        {\ldots}                            NaN    NaN    NaN   
+        2                        {\ldots}                            NaN    NaN    NaN   
+        3                        {\ldots}                            NaN    NaN    NaN   
+        4                        {\ldots}                            NaN    NaN    NaN   
+        
+          SureLw   If NotLw TimeSpc FormLw  Othtags  \textbackslash{}
+        0    NaN  NaN   NaN     NaN    NaN  DET ART   
+        1    NaN  NaN   NaN     NaN    NaN     SUPV   
+        2    NaN  NaN   NaN     NaN    NaN     Noun   
+        3    NaN  NaN   NaN     NaN    NaN     SUPV   
+        4    NaN  NaN   NaN     NaN    NaN     Noun   
+        
+                                                     Defined  
+        0  | article: Indefinite singular article--some o{\ldots}  
+        1                                                  |  
+        2                                                  |  
+        3                                                  |  
+        4                                                NaN  
+        
+        [5 rows x 186 columns]
+\end{Verbatim}
+            
+    \subsection{Convert to InquirerCount}\label{convert-to-inquirercount}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{sentiment\PYZus{}list} \PY{o}{=} \PY{n}{sentiment\PYZus{}list}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Entry}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{sentiment\PYZus{}list}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{184}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{regex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{sentiment\PYZus{}list}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{sentiment\PYZus{}list}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Entry}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{expand} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{sentiment\PYZus{}list}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{sentiment\PYZus{}list}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GAIN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}dict}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} \{'ABS': False,
+         'ANI': False,
+         'Abs@': False,
+         'Academ': False,
+         'Active': True,
+         'AffGain': False,
+         'AffLoss': False,
+         'AffOth': False,
+         'AffPt': False,
+         'AffTot': False,
+         'Affil': False,
+         'Anomie': False,
+         'Aquatic': False,
+         'ArenaLw': False,
+         'Arousal': False,
+         'Begin': False,
+         'BldgPt': False,
+         'BodyPt': False,
+         'CARD': False,
+         'COLL': False,
+         'COLOR': False,
+         'COM': False,
+         'Causal': False,
+         'ComForm': False,
+         'ComnObj': False,
+         'Compare': False,
+         'Complet': True,
+         'DAV': False,
+         'DIM': False,
+         'DIST': False,
+         'Decreas': False,
+         'Doctrin': False,
+         'ECON': True,
+         'EMOT': False,
+         'EVAL': False,
+         'Econ@': True,
+         'EndsLw': True,
+         'EnlEnds': False,
+         'EnlGain': False,
+         'EnlLoss': False,
+         'EnlOth': False,
+         'EnlPt': False,
+         'EnlTot': False,
+         'Entry': True,
+         'Eval@': False,
+         'Exch': False,
+         'Exert': False,
+         'Exprsv': False,
+         'FREQ': False,
+         'Fail': False,
+         'Fall': False,
+         'Feel': False,
+         'Female': False,
+         'Fetch': False,
+         'Finish': False,
+         'Food': False,
+         'FormLw': False,
+         'Goal': True,
+         'HU': False,
+         'Hostile': False,
+         'IAV': True,
+         'IPadj': False,
+         'If': False,
+         'Increas': False,
+         'IndAdj': False,
+         'Intrj': False,
+         'Kin@': False,
+         'Know': False,
+         'Land': False,
+         'Legal': False,
+         'MALE': False,
+         'Means': False,
+         'MeansLw': False,
+         'Milit': False,
+         'NUMB': False,
+         'Name': False,
+         'NatObj': False,
+         'Nation': False,
+         'NatrPro': False,
+         'Need': False,
+         'NegAff': False,
+         'Negate': False,
+         'Negativ': False,
+         'Ngtv': False,
+         'No': False,
+         'Nonadlt': False,
+         'NotLw': False,
+         'ORD': False,
+         'Object': False,
+         'Ought': False,
+         'Our': False,
+         'Ovrst': False,
+         'PLACE': False,
+         'POLIT': False,
+         'POS': False,
+         'Pain': False,
+         'Passive': False,
+         'Perceiv': False,
+         'Persist': False,
+         'Pleasur': False,
+         'Polit@': False,
+         'PosAff': False,
+         'Positiv': True,
+         'PowAren': False,
+         'PowAuPt': False,
+         'PowAuth': False,
+         'PowCon': False,
+         'PowCoop': False,
+         'PowDoct': False,
+         'PowEnds': False,
+         'PowGain': False,
+         'PowLoss': False,
+         'PowOth': False,
+         'PowPt': False,
+         'PowTot': False,
+         'Power': False,
+         'Pstv': True,
+         'PtLw': False,
+         'Quality': False,
+         'Quan': False,
+         'Race': False,
+         'RcEnds': False,
+         'RcEthic': False,
+         'RcGain': False,
+         'RcLoss': False,
+         'RcRelig': False,
+         'RcTot': False,
+         'Region': False,
+         'Rel': False,
+         'Relig': False,
+         'Rise': False,
+         'Ritual': False,
+         'Role': False,
+         'Route': False,
+         'RspGain': False,
+         'RspLoss': False,
+         'RspOth': False,
+         'RspTot': False,
+         'SV': False,
+         'Say': False,
+         'Self': False,
+         'SklAsth': False,
+         'SklOth': False,
+         'SklPt': False,
+         'SklTot': False,
+         'Sky': False,
+         'SocRel': False,
+         'Social': False,
+         'Solve': False,
+         'Space': False,
+         'Stay': False,
+         'Strong': True,
+         'Submit': False,
+         'SureLw': False,
+         'TIME': False,
+         'Think': False,
+         'Time@': False,
+         'TimeSpc': False,
+         'Tool': False,
+         'TranLw': False,
+         'Travel': False,
+         'TrnGain': True,
+         'TrnLoss': False,
+         'Try': False,
+         'Undrst': False,
+         'Vary': False,
+         'Vehicle': False,
+         'Vice': False,
+         'Virtue': False,
+         'Weak': False,
+         'WlbGain': False,
+         'WlbLoss': False,
+         'WlbPhys': False,
+         'WlbPsyc': False,
+         'WlbPt': False,
+         'WlbTot': False,
+         'WltOth': False,
+         'WltPt': False,
+         'WltTot': False,
+         'WltTran': False,
+         'Word': True,
+         'Work': False,
+         'Yes': False,
+         'You': False\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{date\PYZus{}sentiment} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{cnt} \PY{o}{=} \PY{n}{Counter}\PY{p}{(}\PY{p}{)}
+         \PY{n}{limit\PYZus{}data} \PY{o}{=} \PY{l+m+mi}{365}
+         
+         \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{item} \PY{o+ow}{in} \PY{n}{tqdm}\PY{p}{(}\PY{n}{news\PYZus{}dataset}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{limit\PYZus{}data}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             
+             \PY{k}{for} \PY{n}{headline} \PY{o+ow}{in} \PY{n}{headlines}\PY{p}{:}
+                 
+                 \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{headline}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                     
+                     \PY{k}{for} \PY{n}{key}\PY{p}{,} \PY{n}{value} \PY{o+ow}{in} \PY{n}{sentiment\PYZus{}list}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{sentiment\PYZus{}list}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{word}\PY{o}{.}\PY{n}{upper}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}dict}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                         
+                         \PY{k}{if} \PY{n}{value} \PY{o}{==} \PY{k+kc}{True}\PY{p}{:} 
+                             
+                             \PY{n}{cnt}\PY{p}{[}\PY{n}{key}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                     
+                 \PY{n}{date\PYZus{}sentiment}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{date}\PY{p}{:} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{cnt}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+365it [51:43,  8.50s/it]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{def} \PY{n+nf}{inquirer\PYZus{}counter}\PY{p}{(}\PY{n}{item}\PY{p}{)}\PY{p}{:}
+             
+             
+             \PY{n}{date\PYZus{}sentiment} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{cnt} \PY{o}{=} \PY{n}{Counter}\PY{p}{(}\PY{p}{)}
+             \PY{n}{temp\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+             
+             \PY{c+c1}{\PYZsh{}for item in tqdm(df):}
+             
+             \PY{n}{date} \PY{o}{=} \PY{n}{item}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{headlines} \PY{o}{=} \PY{n}{item}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+         
+             \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{headlines}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+         
+                 \PY{k}{for} \PY{n}{key}\PY{p}{,} \PY{n}{value} \PY{o+ow}{in} \PY{n}{sentiment\PYZus{}list}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{sentiment\PYZus{}list}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{word}\PY{o}{.}\PY{n}{upper}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}dict}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+         
+                     \PY{k}{if} \PY{n}{value} \PY{o}{==} \PY{k+kc}{True}\PY{p}{:} 
+         
+                         \PY{n}{cnt}\PY{p}{[}\PY{n}{key}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         
+             \PY{c+c1}{\PYZsh{}temp\PYZus{}dict = dict(cnt.items())}
+             \PY{n}{temp\PYZus{}dict}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{date}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{headline}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{headlines}\PY{p}{\PYZcb{}}\PY{p}{)}
+             \PY{n}{temp\PYZus{}dict}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{cnt}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{cnt}\PY{o}{.}\PY{n}{clear}\PY{p}{(}\PY{p}{)}
+             
+             \PY{n}{date\PYZus{}sentiment}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{temp\PYZus{}dict}\PY{p}{)}
+                     
+             \PY{k}{return} \PY{n}{date\PYZus{}sentiment}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{p} \PY{o}{=} \PY{n}{Pool}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{date\PYZus{}sentiment} \PY{o}{=} \PY{n}{p}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{inquirer\PYZus{}counter}\PY{p}{,} \PY{n}{news\PYZus{}dataset}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{date\PYZus{}sentiment} \PY{o}{=} \PY{p}{[}\PY{n}{item}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{date\PYZus{}sentiment}\PY{p}{]}
+         \PY{n}{date\PYZus{}sentiment} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{date\PYZus{}sentiment}\PY{p}{)}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}129}]:} \PY{k}{del} \PY{n}{news\PYZus{}dataset}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{date\PYZus{}sentiment}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:}        ABS  ANI  Abs@  Academ  Active  AffGain  AffLoss  AffOth  AffPt  \textbackslash{}
+         0      0.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         1      0.0  0.0   0.0     0.0     2.0      0.0      0.0     0.0    0.0   
+         2      0.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         3      0.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         4      0.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         5      0.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    1.0   
+         6      0.0  0.0   0.0     0.0     3.0      0.0      0.0     0.0    0.0   
+         7      0.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         8      0.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         9      1.0  0.0   1.0     0.0     3.0      1.0      0.0     0.0    0.0   
+         10     0.0  0.0   0.0     0.0     2.0      0.0      0.0     0.0    0.0   
+         11     0.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         12     0.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         13     1.0  0.0   0.0     0.0     2.0      0.0      0.0     0.0    0.0   
+         14     0.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         15     1.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         16     0.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         17     0.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         18     1.0  0.0   0.0     0.0     2.0      0.0      0.0     0.0    0.0   
+         19     0.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         20     0.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         21     0.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         22     1.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         23     0.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         24     1.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         25     1.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         26     1.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         27     2.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         28     0.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         29     0.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         {\ldots}    {\ldots}  {\ldots}   {\ldots}     {\ldots}     {\ldots}      {\ldots}      {\ldots}     {\ldots}    {\ldots}   
+         22390  0.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         22391  1.0  0.0   1.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         22392  0.0  0.0   0.0     0.0     3.0      0.0      0.0     0.0    0.0   
+         22393  0.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         22394  0.0  0.0   0.0     1.0     1.0      0.0      0.0     0.0    0.0   
+         22395  0.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         22396  1.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         22397  0.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    1.0   
+         22398  1.0  0.0   0.0     1.0     0.0      0.0      0.0     0.0    0.0   
+         22399  0.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         22400  0.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         22401  1.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         22402  1.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         22403  0.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         22404  1.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         22405  0.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         22406  0.0  0.0   0.0     0.0     2.0      0.0      0.0     0.0    0.0   
+         22407  0.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         22408  0.0  0.0   0.0     1.0     1.0      0.0      0.0     0.0    0.0   
+         22409  1.0  0.0   0.0     0.0     2.0      0.0      0.0     0.0    0.0   
+         22410  0.0  0.0   0.0     0.0     2.0      0.0      0.0     0.0    1.0   
+         22411  0.0  0.0   0.0     0.0     2.0      0.0      0.0     0.0    0.0   
+         22412  1.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         22413  0.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         22414  0.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         22415  1.0  0.0   0.0     0.0     0.0      1.0      0.0     1.0    0.0   
+         22416  0.0  1.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         22417  0.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         22418  1.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         22419  1.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         
+                AffTot                        {\ldots}                          WltOth  \textbackslash{}
+         0         0.0                        {\ldots}                             2.0   
+         1         0.0                        {\ldots}                             0.0   
+         2         0.0                        {\ldots}                             0.0   
+         3         0.0                        {\ldots}                             2.0   
+         4         0.0                        {\ldots}                             1.0   
+         5         1.0                        {\ldots}                             1.0   
+         6         0.0                        {\ldots}                             0.0   
+         7         0.0                        {\ldots}                             0.0   
+         8         0.0                        {\ldots}                             2.0   
+         9         1.0                        {\ldots}                             0.0   
+         10        0.0                        {\ldots}                             1.0   
+         11        0.0                        {\ldots}                             3.0   
+         12        0.0                        {\ldots}                             1.0   
+         13        0.0                        {\ldots}                             0.0   
+         14        0.0                        {\ldots}                             1.0   
+         15        0.0                        {\ldots}                             0.0   
+         16        0.0                        {\ldots}                             1.0   
+         17        0.0                        {\ldots}                             0.0   
+         18        0.0                        {\ldots}                             1.0   
+         19        0.0                        {\ldots}                             1.0   
+         20        0.0                        {\ldots}                             1.0   
+         21        0.0                        {\ldots}                             1.0   
+         22        0.0                        {\ldots}                             1.0   
+         23        0.0                        {\ldots}                             1.0   
+         24        0.0                        {\ldots}                             1.0   
+         25        0.0                        {\ldots}                             1.0   
+         26        0.0                        {\ldots}                             1.0   
+         27        0.0                        {\ldots}                             1.0   
+         28        0.0                        {\ldots}                             0.0   
+         29        0.0                        {\ldots}                             0.0   
+         {\ldots}       {\ldots}                        {\ldots}                             {\ldots}   
+         22390     0.0                        {\ldots}                             0.0   
+         22391     0.0                        {\ldots}                             0.0   
+         22392     0.0                        {\ldots}                             1.0   
+         22393     0.0                        {\ldots}                             2.0   
+         22394     0.0                        {\ldots}                             0.0   
+         22395     0.0                        {\ldots}                             0.0   
+         22396     0.0                        {\ldots}                             0.0   
+         22397     1.0                        {\ldots}                             0.0   
+         22398     0.0                        {\ldots}                             0.0   
+         22399     0.0                        {\ldots}                             1.0   
+         22400     0.0                        {\ldots}                             0.0   
+         22401     0.0                        {\ldots}                             1.0   
+         22402     0.0                        {\ldots}                             0.0   
+         22403     0.0                        {\ldots}                             1.0   
+         22404     0.0                        {\ldots}                             1.0   
+         22405     0.0                        {\ldots}                             2.0   
+         22406     0.0                        {\ldots}                             3.0   
+         22407     0.0                        {\ldots}                             1.0   
+         22408     0.0                        {\ldots}                             2.0   
+         22409     0.0                        {\ldots}                             1.0   
+         22410     1.0                        {\ldots}                             2.0   
+         22411     0.0                        {\ldots}                             1.0   
+         22412     0.0                        {\ldots}                             0.0   
+         22413     0.0                        {\ldots}                             0.0   
+         22414     0.0                        {\ldots}                             0.0   
+         22415     1.0                        {\ldots}                             1.0   
+         22416     0.0                        {\ldots}                             0.0   
+         22417     0.0                        {\ldots}                             0.0   
+         22418     0.0                        {\ldots}                             0.0   
+         22419     0.0                        {\ldots}                             0.0   
+         
+                WltPt  WltTot  WltTran  Word  Work  Yes  You        date  \textbackslash{}
+         0        0.0     2.0      0.0   6.0   0.0  0.0  0.0  2011-10-06   
+         1        0.0     0.0      0.0   5.0   0.0  0.0  0.0  2011-10-06   
+         2        0.0     0.0      0.0   4.0   0.0  0.0  0.0  2011-10-06   
+         3        0.0     2.0      0.0   5.0   0.0  0.0  0.0  2011-10-06   
+         4        0.0     1.0      0.0   4.0   0.0  0.0  0.0  2011-10-06   
+         5        0.0     1.0      0.0   3.0   1.0  0.0  0.0  2011-10-06   
+         6        0.0     0.0      0.0   6.0   1.0  0.0  0.0  2011-10-06   
+         7        0.0     0.0      0.0   3.0   0.0  0.0  0.0  2011-10-06   
+         8        0.0     2.0      1.0   6.0   0.0  0.0  0.0  2011-10-06   
+         9        0.0     0.0      0.0   4.0   1.0  0.0  0.0  2011-10-06   
+         10       0.0     1.0      1.0   5.0   1.0  0.0  0.0  2011-10-06   
+         11       0.0     3.0      1.0   5.0   0.0  0.0  0.0  2011-10-06   
+         12       0.0     1.0      0.0   5.0   0.0  0.0  0.0  2011-10-06   
+         13       0.0     0.0      0.0   9.0   0.0  0.0  0.0  2011-10-06   
+         14       0.0     1.0      0.0   5.0   0.0  0.0  0.0  2011-10-06   
+         15       1.0     3.0      2.0   4.0   0.0  0.0  0.0  2011-10-06   
+         16       0.0     1.0      0.0   5.0   1.0  0.0  0.0  2011-10-06   
+         17       0.0     0.0      0.0   6.0   0.0  0.0  0.0  2011-10-06   
+         18       0.0     1.0      0.0   6.0   0.0  0.0  0.0  2011-10-06   
+         19       0.0     2.0      1.0   4.0   0.0  0.0  0.0  2011-10-06   
+         20       1.0     3.0      1.0   6.0   1.0  0.0  0.0  2011-10-06   
+         21       0.0     2.0      1.0   7.0   0.0  0.0  0.0  2011-10-06   
+         22       1.0     2.0      0.0   7.0   1.0  0.0  0.0  2011-10-06   
+         23       0.0     1.0      0.0   6.0   1.0  0.0  0.0  2011-10-06   
+         24       1.0     2.0      0.0   7.0   1.0  0.0  0.0  2011-10-06   
+         25       1.0     2.0      0.0   7.0   1.0  0.0  0.0  2011-10-06   
+         26       0.0     1.0      0.0   7.0   1.0  0.0  0.0  2011-10-06   
+         27       0.0     1.0      0.0   7.0   0.0  0.0  0.0  2011-10-06   
+         28       0.0     0.0      0.0   7.0   0.0  0.0  0.0  2011-10-06   
+         29       1.0     1.0      0.0   3.0   0.0  0.0  0.0  2011-10-06   
+         {\ldots}      {\ldots}     {\ldots}      {\ldots}   {\ldots}   {\ldots}  {\ldots}  {\ldots}         {\ldots}   
+         22390    0.0     0.0      0.0   5.0   0.0  0.0  0.0  2013-08-12   
+         22391    0.0     0.0      0.0   3.0   0.0  0.0  0.0  2013-08-12   
+         22392    0.0     1.0      0.0   4.0   0.0  0.0  0.0  2013-08-12   
+         22393    0.0     2.0      0.0   5.0   0.0  0.0  0.0  2011-04-19   
+         22394    0.0     0.0      0.0   4.0   0.0  0.0  0.0  2011-04-19   
+         22395    0.0     0.0      0.0   4.0   1.0  0.0  0.0  2011-04-19   
+         22396    1.0     1.0      0.0   7.0   0.0  0.0  0.0  2011-04-19   
+         22397    1.0     1.0      0.0   2.0   0.0  0.0  0.0  2011-04-19   
+         22398    1.0     1.0      0.0   7.0   1.0  0.0  0.0  2011-04-19   
+         22399    0.0     1.0      0.0   6.0   1.0  0.0  0.0  2011-04-19   
+         22400    0.0     0.0      0.0   0.0   0.0  0.0  0.0  2011-04-19   
+         22401    0.0     1.0      0.0   7.0   1.0  0.0  0.0  2011-04-19   
+         22402    0.0     0.0      0.0   6.0   0.0  0.0  0.0  2011-04-19   
+         22403    0.0     1.0      0.0   2.0   0.0  0.0  0.0  2011-04-19   
+         22404    0.0     1.0      0.0   5.0   0.0  0.0  0.0  2011-04-19   
+         22405    0.0     2.0      0.0   5.0   0.0  0.0  0.0  2011-04-19   
+         22406    0.0     5.0      2.0   8.0   0.0  0.0  0.0  2011-04-19   
+         22407    0.0     1.0      0.0   6.0   0.0  0.0  0.0  2011-04-19   
+         22408    0.0     3.0      2.0   6.0   0.0  0.0  0.0  2011-04-19   
+         22409    0.0     1.0      0.0   7.0   0.0  0.0  0.0  2011-04-19   
+         22410    1.0     3.0      0.0   8.0   1.0  0.0  0.0  2011-04-19   
+         22411    0.0     1.0      0.0   8.0   0.0  0.0  0.0  2011-04-19   
+         22412    0.0     0.0      0.0   7.0   0.0  0.0  0.0  2011-04-19   
+         22413    0.0     0.0      0.0   7.0   0.0  0.0  0.0  2011-04-19   
+         22414    0.0     1.0      1.0   4.0   0.0  0.0  0.0  2011-04-19   
+         22415    1.0     2.0      0.0   8.0   0.0  0.0  0.0  2011-04-19   
+         22416    0.0     0.0      0.0   6.0   0.0  0.0  0.0  2011-04-19   
+         22417    0.0     0.0      0.0   5.0   0.0  0.0  0.0  2011-04-19   
+         22418    0.0     0.0      0.0   7.0   0.0  0.0  0.0  2011-04-19   
+         22419    0.0     0.0      0.0   4.0   0.0  0.0  0.0  2011-04-19   
+         
+                                                         headline  
+         0      ivory-coast-keeps-cocoa-export-tax-below-22-do{\ldots}  
+         1      richet-says-ecb-to-offer-longer-loans-will-res{\ldots}  
+         2      saft-chief-says-infrastructure-so-far-proving-{\ldots}  
+         3      south-africa-daybook-business-confidence-elect{\ldots}  
+         4      u-s-stock-options-with-biggest-changes-in-impl{\ldots}  
+         5      kojima-iron-wor-parent-announces-planned-fy-di{\ldots}  
+         6      boe-bond-program-boost-a-bearish-signal-analys{\ldots}  
+         7      sjm-galaxy-lead-gains-in-macau-casino-stocks-i{\ldots}  
+         8      ailand-s-central-pattana-said-to-sell-2-billio{\ldots}  
+         9      enbw-deal-guarantees-violated-state-constituti{\ldots}  
+         10     dupont-boosts-kevlar-output-as-non-ballistic-a{\ldots}  
+         11     iraca-to-buy-caris-anatomic-pathology-business{\ldots}  
+         12     france-will-double-tax-on-sodas-sugary-drinks-{\ldots}  
+         13     peru-sol-has-biggest-two-day-rise-in-four-mont{\ldots}  
+         14     geithner-says-european-debt-crisis-poses-signi{\ldots}  
+         15     aiwan-daybook-september-trade-tsmc-revenue-bil{\ldots}  
+         16      u-k-key-monetary-policy-variables-summary-table-  
+         17     ghana-chamber-of-mines-appoints-toni-aubynn-as{\ldots}  
+         18     nyc-pension-costs-may-increase-after-lower-ret{\ldots}  
+         19     intesa-signals-more-cost-cuts-to-meet-targets-{\ldots}  
+         20     dutch-central-bank-sold-1-100-metric-tons-of-g{\ldots}  
+         21     brazil-to-offer-650-000-ntn-f-5-5-million-ltn-{\ldots}  
+         22     bolivia-september-consumer-price-index-summary{\ldots}  
+         23     sprott-silver-etf-premium-at-18-66-percent-on-{\ldots}  
+         24     greek-bank-deposits-in-august-rose-to-188-6-bi{\ldots}  
+         25     royal-bank-of-canada-xinergy-may-move-canadian{\ldots}  
+         26     brazil-september-igp-di-inflation-index-by-com{\ldots}  
+         27     russian-inflation-may-drop-to-7-in-december-na{\ldots}  
+         28     -gasoline-cargoes-to-u-s-to-slide-35-on-europe{\ldots}  
+         29     apple-co-founder-steve-wozniak-comments-on-ste{\ldots}  
+         {\ldots}                                                  {\ldots}  
+         22390  samsung-losses-to-apple-give-iphone-maker-edge{\ldots}  
+         22391  deadly-irish-humor-spikes-doyle-s-commitments-{\ldots}  
+         22392  derivatives-margin-losses-could-help-save-ccps{\ldots}  
+         22393  petrobras-sells-1-million-barrels-of-pre-salt-{\ldots}  
+         22394  citigroup-s-pringle-to-head-equities-trading-a{\ldots}  
+         22395  united-space-alliance-sues-u-s-to-stop-contrac{\ldots}  
+         22396  germany-to-regain-world-s-second-biggest-expor{\ldots}  
+         22397  enagas-quarterly-net-rises-4-8-as-company-adds{\ldots}  
+         22398  stanbic-ibtc-bank-of-nigeria-rises-to-10-week-{\ldots}  
+         22399  placid-s-port-allen-louisiana-crude-unit-resum{\ldots}  
+         22400  chilean-stocks-ccu-cmpc-madeco-sudamericana-de{\ldots}  
+         22401  russian-milling-wheat-led-declines-last-week-u{\ldots}  
+         22402  ungarian-wages-rise-less-than-economists-forec{\ldots}  
+         22403  ukrainian-sunflower-oil-production-rises-ukrag{\ldots}  
+         22404  eu-hits-india-with-5-year-tariffs-on-stainless{\ldots}  
+         22405  adoff-trustee-says-he-recovered-7-6-billion-in{\ldots}  
+         22406  farmers-get-rich-as-wheat-trade-gives-deere-re{\ldots}  
+         22407  ethanol-declines-as-corn-gasoline-slide-on-dem{\ldots}  
+         22408  u-s-bancorp-profit-rises-56-to-1-05-billion-on{\ldots}  
+         22409  u-s-crude-oil-supplies-rose-a-seventh-week-sur{\ldots}  
+         22410  capmark-financial-group-files-plan-to-exit-ban{\ldots}  
+         22411  foreign-direct-investment-in-china-surges-33-a{\ldots}  
+         22412  eu-sees-possible-restart-of-turkish-talks-afte{\ldots}  
+         22413  bahrain-minister-says-gulf-troops-to-stay-as-c{\ldots}  
+         22414  skf-posts-record-profit-as-industries-recover-{\ldots}  
+         22415  rupiah-drops-to-two-week-low-on-u-s-european-d{\ldots}  
+         22416  norwegian-marathon-record-setter-grete-waitz-d{\ldots}  
+         22417  ecb-must-avoid-falling-behind-the-curve-wellin{\ldots}  
+         22418  u-s-repo-close-current-five-year-note-at-lowes{\ldots}  
+         22419  amborghini-s-china-sales-may-surpass-u-s-on-36{\ldots}  
+         
+         [22420 rows x 186 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/peripheral\PYZus{}data/date\PYZus{}sentiment.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{fp}\PY{p}{:}
+             \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{date\PYZus{}sentiment}\PY{p}{,} \PY{n}{fp}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{with} \PY{n+nb}{open} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/peripheral\PYZus{}data/date\PYZus{}sentiment.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{fp}\PY{p}{:}
+            \PY{n}{date\PYZus{}sentiment} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{fp}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Read and Process QQQ ETF that tracks the Nasdaq
+100}\label{read-and-process-qqq-etf-that-tracks-the-nasdaq-100}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{nasdaq} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/ETFs/qqq.us.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{nasdaq}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:}          Date    Open    High     Low   Close    Volume  OpenInt
+         0  1999-03-10  45.722  45.750  44.967  45.665  11700414        0
+         1  1999-03-11  45.994  46.260  44.988  45.880  21670048        0
+         2  1999-03-12  45.721  45.749  44.406  44.770  19553768        0
+         3  1999-03-15  45.101  46.103  44.625  46.052  14245348        0
+         4  1999-03-16  46.253  46.643  45.749  46.447  10971066        0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}slope}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+             
+             \PY{n}{slope}\PY{p}{,} \PY{n}{intercept}\PY{p}{,} \PY{n}{r\PYZus{}value}\PY{p}{,} \PY{n}{p\PYZus{}value}\PY{p}{,} \PY{n}{std\PYZus{}err} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{linregress}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{slope}
+\end{Verbatim}
+
+
+    \subsection{The Slope of the Closing Price of the QQ ETF, calculated
+over 5 trading
+days}\label{the-slope-of-the-closing-price-of-the-qq-etf-calculated-over-5-trading-days}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{nasdaq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rolling}\PY{p}{(}\PY{n}{window}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{center}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{min\PYZus{}periods}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{func} \PY{o}{=} \PY{n}{get\PYZus{}slope}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{665}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f7e98ea6be0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}546}]:} \PY{n}{nasdaq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nasdaq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rolling}\PY{p}{(}\PY{n}{window}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{center}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{min\PYZus{}periods}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{func} \PY{o}{=} \PY{n}{get\PYZus{}slope}\PY{p}{)}
+          \PY{n}{nasdaq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Open Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nasdaq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Open}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rolling}\PY{p}{(}\PY{n}{window}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{center}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{min\PYZus{}periods}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{func} \PY{o}{=} \PY{n}{get\PYZus{}slope}\PY{p}{)}
+          \PY{n}{nasdaq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nasdaq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rolling}\PY{p}{(}\PY{n}{window}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{center}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{min\PYZus{}periods}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{func} \PY{o}{=} \PY{n}{get\PYZus{}slope}\PY{p}{)}
+          \PY{n}{nasdaq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Low Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nasdaq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Low}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rolling}\PY{p}{(}\PY{n}{window}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{center}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{min\PYZus{}periods}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{func} \PY{o}{=} \PY{n}{get\PYZus{}slope}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{The Difference in the slope between t and t-1
+days}\label{the-difference-in-the-slope-between-t-and-t-1-days}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{p}{(}\PY{n}{nasdaq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{nasdaq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shift}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f7e9876f2e8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{nasdaq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope Differential}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{nasdaq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{nasdaq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shift}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{nasdaq}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:}             Date    Open     High     Low   Close    Volume  OpenInt  \textbackslash{}
+         4696  2017-11-06  153.13  153.850  153.10  153.75  28685854        0   
+         4697  2017-11-07  153.67  154.082  153.34  153.87  21285469        0   
+         4698  2017-11-08  153.81  154.540  153.62  154.51  17326500        0   
+         4699  2017-11-09  153.26  153.770  152.11  153.69  40554952        0   
+         4700  2017-11-10  153.36  153.800  153.06  153.68  20138114        0   
+         
+               Close Slope  Close Slope Differential   bull  
+         4696     1.535100                 -0.261293   True  
+         4697     1.517837                 -0.017263   True  
+         4698     1.459258                 -0.058580   True  
+         4699     1.992826                  0.533568   True  
+         4700    -0.655738                 -2.648564  False  
+\end{Verbatim}
+            
+    \subsection{Comparing the QQQ ETF Values, Slope and Slope Differential
+Values}\label{comparing-the-qqq-etf-values-slope-and-slope-differential-values}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{nasdaq}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{l+m+mi}{200}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f7e9b1d4080>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{nasdaq}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{l+m+mi}{200}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope Differential}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f7e99a56ac8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{nasdaq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bull}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{nasdaq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}
+\end{Verbatim}
+
+
+    \subsection{Map InquirerCount to QQQ ETF; i.e. Each date is broken down
+to Sentiment
+Counts}\label{map-inquirercount-to-qqq-etf-i.e.-each-date-is-broken-down-to-sentiment-counts}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{date\PYZus{}sentiment}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{date\PYZus{}sentiment}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}547}]:} \PY{n}{nasdaq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{nasdaq}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{date\PYZus{}sentiment} \PY{o}{=} \PY{n}{date\PYZus{}sentiment}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{date\PYZus{}sentiment}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:}             ABS  ANI  Abs@  Academ  Active  AffGain  AffLoss  AffOth  AffPt  \textbackslash{}
+         date                                                                          
+         2006-10-20  0.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+         2006-10-30  0.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         2006-11-01  0.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+         2006-11-13  1.0  0.0   0.0     1.0     2.0      0.0      1.0     0.0    0.0   
+         2006-11-20  1.0  0.0   0.0     0.0     2.0      0.0      0.0     0.0    0.0   
+         
+                     AffTot {\ldots}   WlbPt  WlbTot  WltOth  WltPt  WltTot  WltTran  Word  \textbackslash{}
+         date               {\ldots}                                                         
+         2006-10-20     0.0 {\ldots}     0.0     1.0     0.0    0.0     0.0      0.0   3.0   
+         2006-10-30     0.0 {\ldots}     0.0     0.0     1.0    0.0     1.0      0.0   2.0   
+         2006-11-01     0.0 {\ldots}     0.0     0.0     1.0    0.0     2.0      1.0   5.0   
+         2006-11-13     1.0 {\ldots}     0.0     0.0     0.0    0.0     0.0      0.0   8.0   
+         2006-11-20     0.0 {\ldots}     0.0     0.0     2.0    0.0     2.0      1.0   6.0   
+         
+                     Work  Yes  You  
+         date                        
+         2006-10-20   0.0  0.0  0.0  
+         2006-10-30   0.0  0.0  0.0  
+         2006-11-01   0.0  0.0  0.0  
+         2006-11-13   1.0  0.0  0.0  
+         2006-11-20   0.0  0.0  0.0  
+         
+         [5 rows x 184 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{nasdaq}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:}            Date    Open     High     Low   Close    Volume  OpenInt  \textbackslash{}
+         4696 2017-11-06  153.13  153.850  153.10  153.75  28685854        0   
+         4697 2017-11-07  153.67  154.082  153.34  153.87  21285469        0   
+         4698 2017-11-08  153.81  154.540  153.62  154.51  17326500        0   
+         4699 2017-11-09  153.26  153.770  152.11  153.69  40554952        0   
+         4700 2017-11-10  153.36  153.800  153.06  153.68  20138114        0   
+         
+               Close Slope  Close Slope Differential   bull  
+         4696     1.535100                 -0.261293   True  
+         4697     1.517837                 -0.017263   True  
+         4698     1.459258                 -0.058580   True  
+         4699     1.992826                  0.533568   True  
+         4700    -0.655738                 -2.648564  False  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}548}]:} \PY{n}{merger} \PY{o}{=} \PY{n}{date\PYZus{}sentiment}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{nasdaq}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{left\PYZus{}index} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} \PY{n}{right\PYZus{}on} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}549}]:} \PY{n}{merger} \PY{o}{=} \PY{n}{merger}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}550}]:} \PY{n}{merger}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}550}]:}                  ABS       ANI      Abs@    Academ    Active   AffGain  \textbackslash{}
+          Date                                                                     
+          2006-10-20  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          2006-10-30  0.000000  0.000000  0.000000  0.000000  1.000000  0.000000   
+          2006-11-01  0.000000  0.000000  0.000000  0.000000  1.000000  0.000000   
+          2006-11-13  1.000000  0.000000  0.000000  1.000000  2.000000  0.000000   
+          2006-11-20  1.000000  0.000000  0.000000  0.000000  2.000000  0.000000   
+          2006-12-12  0.000000  0.000000  0.000000  0.000000  2.000000  0.000000   
+          2007-02-02  0.000000  0.000000  0.000000  0.000000  2.000000  0.000000   
+          2007-03-08  0.000000  0.000000  0.000000  0.000000  1.000000  0.000000   
+          2007-03-20  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          2007-03-21  0.000000  0.000000  0.000000  0.000000  1.000000  0.000000   
+          2007-03-27  1.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          2007-03-29  0.000000  0.000000  0.000000  0.000000  2.000000  0.000000   
+          2007-04-13  1.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          2007-04-27  0.000000  0.000000  0.000000  0.000000  1.000000  0.000000   
+          2007-05-24  0.000000  0.000000  0.000000  0.000000  1.000000  0.000000   
+          2007-05-25  0.000000  0.000000  0.000000  0.000000  1.000000  0.000000   
+          2007-05-29  0.000000  0.000000  0.000000  0.000000  2.000000  0.000000   
+          2007-05-31  0.000000  0.000000  0.000000  0.000000  1.000000  0.000000   
+          2007-06-20  0.000000  0.000000  0.000000  0.000000  2.000000  0.000000   
+          2007-07-26  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          2007-07-31  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          2007-08-14  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          2007-08-24  0.000000  0.000000  0.000000  0.000000  2.000000  0.000000   
+          2007-09-03  1.000000  0.000000  0.000000  1.000000  1.000000  0.000000   
+          2007-10-09  0.000000  0.000000  0.000000  0.000000  1.000000  0.000000   
+          2007-10-11  1.000000  0.000000  0.000000  0.000000  2.000000  0.000000   
+          2007-10-12  0.000000  0.000000  0.000000  0.000000  3.000000  0.000000   
+          2007-11-05  0.000000  0.000000  0.000000  0.000000  1.000000  0.000000   
+          2007-12-08  0.000000  0.000000  0.000000  0.000000  1.000000  0.000000   
+          2007-12-13  1.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          {\ldots}              {\ldots}       {\ldots}       {\ldots}       {\ldots}       {\ldots}       {\ldots}   
+          2013-10-28  0.312500  0.000000  0.125000  0.062500  0.937500  0.000000   
+          2013-10-29  0.200000  0.000000  0.050000  0.100000  0.900000  0.000000   
+          2013-10-30  0.333333  0.000000  0.095238  0.047619  0.714286  0.000000   
+          2013-10-31  0.416667  0.041667  0.083333  0.041667  1.041667  0.083333   
+          2013-11-01  0.352941  0.000000  0.000000  0.294118  1.235294  0.000000   
+          2013-11-02  0.000000  0.000000  0.000000  0.500000  1.000000  0.000000   
+          2013-11-03  0.000000  0.000000  0.000000  0.000000  0.250000  0.500000   
+          2013-11-04  0.352941  0.058824  0.117647  0.000000  0.941176  0.000000   
+          2013-11-05  0.285714  0.000000  0.095238  0.238095  0.714286  0.000000   
+          2013-11-06  0.181818  0.045455  0.045455  0.000000  0.590909  0.000000   
+          2013-11-07  0.166667  0.000000  0.083333  0.125000  0.916667  0.041667   
+          2013-11-08  0.263158  0.105263  0.105263  0.105263  0.736842  0.052632   
+          2013-11-09  0.000000  0.000000  0.000000  0.000000  0.500000  0.000000   
+          2013-11-10  1.333333  0.000000  0.000000  0.000000  0.666667  0.333333   
+          2013-11-11  0.400000  0.000000  0.133333  0.066667  0.733333  0.066667   
+          2013-11-12  0.590909  0.000000  0.136364  0.000000  0.590909  0.136364   
+          2013-11-13  0.333333  0.000000  0.095238  0.047619  1.095238  0.190476   
+          2013-11-14  0.347826  0.000000  0.130435  0.043478  1.043478  0.086957   
+          2013-11-15  0.125000  0.000000  0.000000  0.125000  0.812500  0.000000   
+          2013-11-16  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          2013-11-17  0.000000  0.000000  0.000000  0.000000  0.600000  0.000000   
+          2013-11-18  0.166667  0.055556  0.055556  0.055556  0.833333  0.000000   
+          2013-11-19  0.350000  0.050000  0.150000  0.100000  0.750000  0.050000   
+          2013-11-20  0.210526  0.000000  0.052632  0.000000  0.789474  0.000000   
+          2013-11-21  0.272727  0.000000  0.045455  0.181818  0.954545  0.045455   
+          2013-11-22  0.294118  0.058824  0.000000  0.117647  0.705882  0.000000   
+          2013-11-23  0.666667  0.000000  0.000000  0.000000  1.333333  0.000000   
+          2013-11-24  0.000000  0.000000  0.000000  0.000000  1.666667  0.000000   
+          2013-11-25  0.333333  0.133333  0.066667  0.000000  1.266667  0.000000   
+          2013-11-26  1.000000  0.000000  1.000000  0.000000  0.000000  0.000000   
+          
+                       AffLoss    AffOth     AffPt    AffTot    {\ldots}         Low   Close  \textbackslash{}
+          Date                                                  {\ldots}                       
+          2006-10-20  0.000000  0.000000  0.000000  0.000000    {\ldots}      37.809  38.135   
+          2006-10-30  0.000000  0.000000  0.000000  0.000000    {\ldots}      38.188  38.569   
+          2006-11-01  0.000000  0.000000  0.000000  0.000000    {\ldots}      37.976  38.135   
+          2006-11-13  1.000000  0.000000  0.000000  1.000000    {\ldots}      39.037  39.464   
+          2006-11-20  0.000000  0.000000  0.000000  0.000000    {\ldots}      39.960  40.306   
+          2006-12-12  0.000000  0.000000  0.000000  0.000000    {\ldots}      39.549  39.765   
+          2007-02-02  0.000000  0.000000  0.000000  0.000000    {\ldots}      39.944  40.140   
+          2007-03-08  0.000000  0.000000  0.000000  0.000000    {\ldots}      38.943  39.058   
+          2007-03-20  0.000000  0.000000  0.000000  0.000000    {\ldots}      39.309  39.645   
+          2007-03-21  0.000000  0.000000  0.000000  0.000000    {\ldots}      39.433  40.408   
+          2007-03-27  0.000000  0.000000  0.000000  0.000000    {\ldots}      39.977  40.014   
+          2007-03-29  0.000000  0.000000  0.000000  0.000000    {\ldots}      39.208  39.637   
+          2007-04-13  0.000000  0.000000  0.000000  0.000000    {\ldots}      40.288  40.614   
+          2007-04-27  0.000000  0.000000  0.000000  0.000000    {\ldots}      42.105  42.358   
+          2007-05-24  0.000000  0.000000  0.000000  0.000000    {\ldots}      41.816  41.990   
+          2007-05-25  0.000000  0.000000  0.000000  0.000000    {\ldots}      42.009  42.252   
+          2007-05-29  0.000000  0.000000  0.000000  0.000000    {\ldots}      42.220  42.583   
+          2007-05-31  0.000000  0.000000  0.000000  0.000000    {\ldots}      42.948  43.130   
+          2007-06-20  0.000000  0.000000  0.000000  0.000000    {\ldots}      42.999  43.063   
+          2007-07-26  0.000000  0.000000  0.000000  0.000000    {\ldots}      43.743  44.590   
+          2007-07-31  0.000000  0.000000  1.000000  1.000000    {\ldots}      43.181  43.272   
+          2007-08-14  0.000000  0.000000  0.000000  0.000000    {\ldots}      42.539  42.592   
+          2007-08-24  0.000000  0.000000  0.000000  0.000000    {\ldots}      43.072  43.874   
+          2007-09-03  0.000000  0.000000  0.000000  0.000000    {\ldots}         NaN     NaN   
+          2007-10-09  0.000000  0.000000  0.000000  0.000000    {\ldots}      48.305  48.622   
+          2007-10-11  0.000000  0.000000  0.000000  0.000000    {\ldots}      47.619  47.965   
+          2007-10-12  0.000000  0.000000  0.000000  0.000000    {\ldots}      48.087  48.754   
+          2007-11-05  0.000000  0.000000  0.000000  0.000000    {\ldots}      48.809  49.244   
+          2007-12-08  0.000000  0.000000  0.000000  0.000000    {\ldots}         NaN     NaN   
+          2007-12-13  0.000000  0.000000  0.000000  0.000000    {\ldots}      46.435  46.907   
+          {\ldots}              {\ldots}       {\ldots}       {\ldots}       {\ldots}    {\ldots}         {\ldots}     {\ldots}   
+          2013-10-28  0.000000  0.062500  0.062500  0.125000    {\ldots}      78.798  79.151   
+          2013-10-29  0.000000  0.000000  0.000000  0.000000    {\ldots}      78.939  79.282   
+          2013-10-30  0.047619  0.000000  0.000000  0.047619    {\ldots}      78.828  79.208   
+          2013-10-31  0.000000  0.000000  0.041667  0.125000    {\ldots}      78.730  79.026   
+          2013-11-01  0.000000  0.235294  0.000000  0.235294    {\ldots}      78.654  79.045   
+          2013-11-02  0.000000  0.500000  0.000000  0.500000    {\ldots}         NaN     NaN   
+          2013-11-03  0.000000  0.000000  0.000000  0.500000    {\ldots}         NaN     NaN   
+          2013-11-04  0.000000  0.000000  0.000000  0.000000    {\ldots}      78.884  79.160   
+          2013-11-05  0.000000  0.000000  0.000000  0.000000    {\ldots}      78.625  79.246   
+          2013-11-06  0.000000  0.045455  0.000000  0.045455    {\ldots}      78.969  79.228   
+          2013-11-07  0.000000  0.000000  0.000000  0.041667    {\ldots}      77.671  77.738   
+          2013-11-08  0.000000  0.000000  0.052632  0.105263    {\ldots}      77.804  78.788   
+          2013-11-09  0.000000  0.000000  0.000000  0.000000    {\ldots}         NaN     NaN   
+          2013-11-10  0.000000  0.000000  0.000000  0.333333    {\ldots}         NaN     NaN   
+          2013-11-11  0.000000  0.066667  0.000000  0.066667    {\ldots}      78.408  78.663   
+          2013-11-12  0.000000  0.045455  0.000000  0.136364    {\ldots}      78.388  78.788   
+          2013-11-13  0.000000  0.047619  0.000000  0.190476    {\ldots}      78.270  79.742   
+          2013-11-14  0.000000  0.086957  0.000000  0.130435    {\ldots}      79.360  79.991   
+          2013-11-15  0.000000  0.000000  0.062500  0.062500    {\ldots}      79.810  80.142   
+          2013-11-16  0.000000  0.000000  0.000000  0.000000    {\ldots}         NaN     NaN   
+          2013-11-17  0.000000  0.000000  0.000000  0.000000    {\ldots}         NaN     NaN   
+          2013-11-18  0.000000  0.000000  0.000000  0.000000    {\ldots}      79.208  79.360   
+          2013-11-19  0.000000  0.000000  0.000000  0.050000    {\ldots}      78.998  79.133   
+          2013-11-20  0.000000  0.000000  0.000000  0.000000    {\ldots}      78.711  78.939   
+          2013-11-21  0.045455  0.045455  0.000000  0.090909    {\ldots}      79.208  79.742   
+          2013-11-22  0.000000  0.058824  0.000000  0.058824    {\ldots}      79.820  80.171   
+          2013-11-23  0.000000  0.000000  0.000000  0.000000    {\ldots}         NaN     NaN   
+          2013-11-24  0.000000  0.000000  0.333333  0.333333    {\ldots}         NaN     NaN   
+          2013-11-25  0.000000  0.000000  0.000000  0.000000    {\ldots}      80.161  80.363   
+          2013-11-26  0.000000  0.000000  0.000000  0.000000    {\ldots}      80.211  80.783   
+          
+                           Volume  OpenInt  Close Slope  Close Slope Differential  \textbackslash{}
+          Date                                                                      
+          2006-10-20  116136535.0      0.0    -4.308868                  0.665084   
+          2006-10-30  114432024.0      0.0     1.792000                  0.792157   
+          2006-11-01  164049904.0      0.0    -3.402973                 -3.257204   
+          2006-11-13   98192406.0      0.0     5.229982                 -1.516541   
+          2006-11-20  118051228.0      0.0     9.051713                  4.370242   
+          2006-12-12  122242536.0      0.0    -3.243881                  0.470988   
+          2007-02-02  108013250.0      0.0     6.212800                 -0.211018   
+          2007-03-08  133002764.0      0.0     3.944905                  5.016457   
+          2007-03-20   86574357.0      0.0     4.414845                  0.206032   
+          2007-03-21  190546421.0      0.0     2.489600                 -1.925244   
+          2007-03-27   84017541.0      0.0    -8.118992                -11.016327   
+          2007-03-29  136758917.0      0.0    -4.421880                  0.073724   
+          2007-04-13  103968505.0      0.0     2.095845                  4.245825   
+          2007-04-27  106137111.0      0.0     3.284147                  0.038026   
+          2007-05-24  226752491.0      0.0    -2.727917                 -7.107924   
+          2007-05-25   95797145.0      0.0    -3.741998                 -1.014081   
+          2007-05-29  109597743.0      0.0    -1.894354                  1.847644   
+          2007-05-31  120319569.0      0.0     3.369702                  0.958691   
+          2007-06-20  177850954.0      0.0    -0.177974                 -4.690443   
+          2007-07-26  349878691.0      0.0    -3.389926                  0.223589   
+          2007-07-31  285834951.0      0.0    -2.048091                  0.321438   
+          2007-08-14  168658024.0      0.0    -2.015636                  0.103173   
+          2007-08-24   96883987.0      0.0     2.610017                 -0.169587   
+          2007-09-03          NaN      NaN          NaN                       NaN   
+          2007-10-09  103159536.0      0.0     2.088065                 -0.040031   
+          2007-10-11  263268338.0      0.0     0.083880                 -2.195388   
+          2007-10-12  144573702.0      0.0     0.086158                  0.002278   
+          2007-11-05  165345590.0      0.0    -1.646972                 -2.134327   
+          2007-12-08          NaN      NaN          NaN                       NaN   
+          2007-12-13  168500783.0      0.0    -2.396622                 -0.100263   
+          {\ldots}                 {\ldots}      {\ldots}          {\ldots}                       {\ldots}   
+          2013-10-28   29969177.0      0.0     2.912011                  0.672523   
+          2013-10-29   38634146.0      0.0     3.262163                  0.350152   
+          2013-10-30   35114664.0      0.0     4.369322                  1.107159   
+          2013-10-31   32801048.0      0.0    -4.366691                 -8.736012   
+          2013-11-01   32342690.0      0.0    -9.978423                 -5.611732   
+          2013-11-02          NaN      NaN          NaN                       NaN   
+          2013-11-03          NaN      NaN          NaN                       NaN   
+          2013-11-04   17642323.0      0.0    -8.637375                  1.341048   
+          2013-11-05   29303015.0      0.0     5.492206                 14.129581   
+          2013-11-06   26754567.0      0.0    14.614939                  9.122732   
+          2013-11-07   54554891.0      0.0    -1.529321                -16.144260   
+          2013-11-08   32976633.0      0.0    -1.377734                  0.151587   
+          2013-11-09          NaN      NaN          NaN                       NaN   
+          2013-11-10          NaN      NaN          NaN                       NaN   
+          2013-11-11   25996659.0      0.0    -1.066300                  0.311434   
+          2013-11-12   21061088.0      0.0     0.037385                  1.103685   
+          2013-11-13   32806057.0      0.0     1.985660                  1.948274   
+          2013-11-14   32580081.0      0.0     2.252536                  0.266876   
+          2013-11-15   21492550.0      0.0     2.174814                 -0.077722   
+          2013-11-16          NaN      NaN          NaN                       NaN   
+          2013-11-17          NaN      NaN          NaN                       NaN   
+          2013-11-18   33172839.0      0.0     1.304443                 -0.870372   
+          2013-11-19   26746656.0      0.0    -2.584520                 -3.888963   
+          2013-11-20   33707651.0      0.0    -2.775970                 -0.191449   
+          2013-11-21   29457408.0      0.0    -1.308728                  1.467241   
+          2013-11-22   26560185.0      0.0     2.292885                  3.601613   
+          2013-11-23          NaN      NaN          NaN                       NaN   
+          2013-11-24          NaN      NaN          NaN                       NaN   
+          2013-11-25   22728593.0      0.0     2.367937                  0.075052   
+          2013-11-26   27894035.0      0.0     2.191333                 -0.176604   
+          
+                       bull  Open Slope  High Slope  Low Slope  
+          Date                                                  
+          2006-10-20  False   -4.652365   -6.793877  -4.106005  
+          2006-10-30   True    1.349647    4.911219   7.300152  
+          2006-11-01  False    0.726592  -10.161323  -4.463475  
+          2006-11-13   True    3.726572    4.863121   7.457352  
+          2006-11-20   True    4.461471    6.174466   3.967531  
+          2006-12-12  False   -2.538386   -9.471212  -5.131627  
+          2007-02-02   True    4.174153    5.596165   5.147352  
+          2007-03-08   True    2.781467    3.598997   4.399278  
+          2007-03-20   True    5.137673    5.922378   3.825110  
+          2007-03-21   True    5.329052    2.766440   5.129501  
+          2007-03-27  False    2.649124  -18.916383   1.998839  
+          2007-03-29  False   -6.828997   -7.790673  -3.857865  
+          2007-04-13   True   -3.150434  -13.110742  -4.343034  
+          2007-04-27   True    3.839755    3.454085   3.312370  
+          2007-05-24  False    4.364597    3.158637  -1.377597  
+          2007-05-25  False   -2.460265   -4.177369  -3.223485  
+          2007-05-29  False   -3.739789   -4.234762  -2.785415  
+          2007-05-31   True    1.807452    3.376083   3.256213  
+          2007-06-20  False    3.620150    6.907926   0.807412  
+          2007-07-26  False   -3.361426   -4.250403  -2.152042  
+          2007-07-31  False   -2.391699   -4.078948  -2.632351  
+          2007-08-14  False   -2.306341   -2.363425  -1.842783  
+          2007-08-24   True    2.432886    2.861494   2.708860  
+          2007-09-03    NaN         NaN         NaN        NaN  
+          2007-10-09   True    2.527606    2.280104   2.234226  
+          2007-10-11   True    2.735986    4.343491   1.090550  
+          2007-10-12   True    1.237347    4.369225  -1.276216  
+          2007-11-05  False   -0.484846   -3.463360  -6.487826  
+          2007-12-08    NaN         NaN         NaN        NaN  
+          2007-12-13  False   -2.322655   -2.595104  -2.297909  
+          {\ldots}           {\ldots}         {\ldots}         {\ldots}        {\ldots}  
+          2013-10-28   True    1.690523    1.884251   3.096666  
+          2013-10-29   True    2.475181    2.960407   3.170808  
+          2013-10-30   True    2.554654    3.511872   4.029556  
+          2013-10-31  False   -0.979025    5.130028  -0.293871  
+          2013-11-01  False   -0.590738    2.808330 -10.850391  
+          2013-11-02    NaN         NaN         NaN        NaN  
+          2013-11-03    NaN         NaN         NaN        NaN  
+          2013-11-04  False   -3.117970   -7.476017  -5.345178  
+          2013-11-05   True   -3.814577   -8.051211  -5.131045  
+          2013-11-06   True    2.225347    4.119549   5.064908  
+          2013-11-07  False    0.749391    4.076096  -1.748731  
+          2013-11-08  False   -1.490821   -2.934570  -2.083142  
+          2013-11-09    NaN         NaN         NaN        NaN  
+          2013-11-10    NaN         NaN         NaN        NaN  
+          2013-11-11  False   -1.401097   -3.830558  -1.325430  
+          2013-11-12   True   -1.858883   -3.820845  -0.388090  
+          2013-11-13   True   -1.780506    1.376780   3.727809  
+          2013-11-14   True    2.026049    2.507680   2.317383  
+          2013-11-15   True    1.692044    2.436592   1.959656  
+          2013-11-16    NaN         NaN         NaN        NaN  
+          2013-11-17    NaN         NaN         NaN        NaN  
+          2013-11-18   True    1.691608    2.587201   1.831640  
+          2013-11-19  False    1.237394    0.467828   1.020021  
+          2013-11-20  False   -1.719612   -3.930454  -3.120493  
+          2013-11-21  False   -3.235330   -4.010824  -2.611668  
+          2013-11-22   True   -0.862313   -0.148191   2.160133  
+          2013-11-23    NaN         NaN         NaN        NaN  
+          2013-11-24    NaN         NaN         NaN        NaN  
+          2013-11-25   True    2.651557    3.801763   2.407774  
+          2013-11-26   True    2.600007    2.864788   2.355833  
+          
+          [1247 rows x 196 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{merger}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Positiv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f7e993e33c8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Comaparing the raw value of the QQQ ETF and mean value of
+sentiments for that
+day}\label{comaparing-the-raw-value-of-the-qqq-etf-and-mean-value-of-sentiments-for-that-day}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}551}]:} \PY{n}{merger}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{merger}\PY{o}{.}\PY{n}{index}\PY{o}{\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2013}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Positiv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Negativ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Open Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Low Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}551}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f7e60c99ef0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{n}{merger}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{merger}\PY{o}{.}\PY{n}{index}\PY{o}{\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2013}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Positiv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Negativ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}90}]:}           Positiv   Negativ
+         Positiv  1.000000 -0.007026
+         Negativ -0.007026  1.000000
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{n}{merger}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{merger}\PY{o}{.}\PY{n}{index}\PY{o}{\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2013}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Positiv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Negativ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope Differential}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}99}]:}              Positiv   Negativ  Close Slope  Close Slope Differential
+         Date                                                                 
+         2013-01-02  0.375000  0.562500     0.930774                  1.449665
+         2013-01-03  0.578947  0.473684     0.974542                  0.043768
+         2013-01-04  0.166667  0.666667     0.953991                 -0.020551
+         2013-01-05  0.333333  0.333333          NaN                       NaN
+         2013-01-06  0.600000  0.400000          NaN                       NaN
+         2013-01-07  0.238095  0.476190     1.030233                  0.076242
+         2013-01-08  0.480000  0.400000    -5.724951                 -6.755185
+         2013-01-09  0.280000  0.640000    -4.381753                  1.343198
+         2013-01-10  0.423077  0.615385     5.008675                  9.390428
+         2013-01-11  0.750000  0.416667     4.678714                 -0.329960
+         2013-01-12  0.000000  0.000000          NaN                       NaN
+         2013-01-13  0.200000  0.800000          NaN                       NaN
+         2013-01-14  0.538462  0.538462     4.014941                 -0.663773
+         2013-01-15  0.520000  0.360000    -1.846842                 -5.861783
+         2013-01-16  0.384615  0.384615    -5.062676                 -3.215835
+         2013-01-17  0.407407  0.851852    -0.556176                  4.506500
+         2013-01-18  0.318182  0.181818     4.440673                  4.996849
+         2013-01-19  0.000000  0.333333          NaN                       NaN
+         2013-01-20  0.400000  0.600000          NaN                       NaN
+         2013-01-21  0.277778  0.444444          NaN                       NaN
+         2013-01-22  0.592593  0.296296     5.759261                  1.318588
+         2013-01-23  0.500000  0.500000     5.435407                 -0.323854
+         2013-01-24  0.464286  0.750000    -1.419702                 -6.855109
+         2013-01-25  0.409091  0.363636    -1.530283                 -0.110581
+         2013-01-26  0.666667  0.666667          NaN                       NaN
+         2013-01-27  0.666667  0.833333          NaN                       NaN
+         2013-01-28  0.217391  0.521739    -1.512248                  0.018034
+         2013-01-29  0.423077  0.653846    -0.864913                  0.647336
+         2013-01-30  0.321429  0.500000     5.656810                  6.521723
+         2013-01-31  0.516129  0.483871    -7.200173                -12.856983
+         {\ldots}              {\ldots}       {\ldots}          {\ldots}                       {\ldots}
+         2013-10-28  0.625000  0.312500     2.912011                  0.672523
+         2013-10-29  0.400000  0.650000     3.262163                  0.350152
+         2013-10-30  0.619048  0.619048     4.369322                  1.107159
+         2013-10-31  0.583333  0.666667    -4.366691                 -8.736012
+         2013-11-01  0.411765  0.470588    -9.978423                 -5.611732
+         2013-11-02  1.500000  0.500000          NaN                       NaN
+         2013-11-03  0.750000  0.250000          NaN                       NaN
+         2013-11-04  0.529412  0.588235    -8.637375                  1.341048
+         2013-11-05  0.428571  0.523810     5.492206                 14.129581
+         2013-11-06  0.272727  0.227273    14.614939                  9.122732
+         2013-11-07  0.583333  0.625000    -1.529321                -16.144260
+         2013-11-08  0.421053  0.368421    -1.377734                  0.151587
+         2013-11-09  0.500000  0.500000          NaN                       NaN
+         2013-11-10  1.000000  1.000000          NaN                       NaN
+         2013-11-11  0.466667  0.466667    -1.066300                  0.311434
+         2013-11-12  0.409091  0.636364     0.037385                  1.103685
+         2013-11-13  0.952381  0.476190     1.985660                  1.948274
+         2013-11-14  0.478261  0.478261     2.252536                  0.266876
+         2013-11-15  0.562500  0.562500     2.174814                 -0.077722
+         2013-11-16  0.000000  0.000000          NaN                       NaN
+         2013-11-17  0.400000  0.400000          NaN                       NaN
+         2013-11-18  0.500000  0.777778     1.304443                 -0.870372
+         2013-11-19  0.400000  0.500000    -2.584520                 -3.888963
+         2013-11-20  0.368421  0.263158    -2.775970                 -0.191449
+         2013-11-21  0.454545  0.636364    -1.308728                  1.467241
+         2013-11-22  0.352941  0.411765     2.292885                  3.601613
+         2013-11-23  0.666667  0.666667          NaN                       NaN
+         2013-11-24  1.333333  0.666667          NaN                       NaN
+         2013-11-25  0.533333  0.400000     2.367937                  0.075052
+         2013-11-26  1.000000  0.000000     2.191333                 -0.176604
+         
+         [329 rows x 4 columns]
+\end{Verbatim}
+            
+    \subsection{To Do}\label{to-do}
+
+\begin{itemize}
+\tightlist
+\item
+  Remove Weekends
+\item
+  Tease out correlations
+\item
+  Apply Naive Bayes
+\item
+  Apply LSTM
+\end{itemize}
+
+    \subsection{Scatter Plot of Positve and Negative Mean
+Sentiments}\label{scatter-plot-of-positve-and-negative-mean-sentiments}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{n}{merger}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{merger}\PY{o}{.}\PY{n}{index}\PY{o}{\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2013}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Positiv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Negativ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Positiv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Negativ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}110}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f7e7fb91278>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Notes}\label{notes}
+
+\begin{itemize}
+\tightlist
+\item
+  Negative correlation appears to be stronger at extremes, which appears
+  to check in intuitively
+\item
+  Filter by strong values maybe?
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}114}]:} \PY{n}{merger}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{merger}\PY{o}{.}\PY{n}{index}\PY{o}{\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2013}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Positiv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Positiv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}114}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f7e7f9e06d8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Correlations of General Inquirer Sentiments with respect to
+Slope of the 5 day Close Price and it's one day
+differential.}\label{correlations-of-general-inquirer-sentiments-with-respect-to-slope-of-the-5-day-close-price-and-its-one-day-differential.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}125}]:} \PY{n}{merger}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{merger}\PY{o}{.}\PY{n}{index}\PY{o}{\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2013}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope Differential}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}125}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f7e7f259d68>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_55_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}564}]:} \PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{40}\PY{p}{,} \PY{l+m+mi}{10}
+          \PY{n}{merger}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{merger}\PY{o}{.}\PY{n}{index}\PY{o}{\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2013}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}564}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f7e498fbc88>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_56_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}566}]:} \PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{40}\PY{p}{,} \PY{l+m+mi}{10}
+          \PY{n}{merger}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{merger}\PY{o}{.}\PY{n}{index}\PY{o}{\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2013}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Low Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}566}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f7e4897ac50>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_57_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}128}]:} \PY{n}{merger}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{merger}\PY{o}{.}\PY{n}{index}\PY{o}{\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2013}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope Differential}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope Differential}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}128}]:}                           Close Slope  Close Slope Differential
+          Decreas                     -0.183515                 -0.165353
+          DIM                         -0.108853                 -0.159896
+          POS                          0.031495                 -0.153299
+          AffTot                      -0.127909                 -0.151927
+          Social                      -0.105875                 -0.145620
+          AffOth                      -0.102001                 -0.140396
+          Volume                      -0.178944                 -0.134114
+          Name                        -0.086608                 -0.128848
+          Try                         -0.043290                 -0.118718
+          PowCon                      -0.047221                 -0.118695
+          PLACE                       -0.122708                 -0.110884
+          Aquatic                     -0.057444                 -0.107005
+          Yes                         -0.007432                 -0.106514
+          Space                       -0.015257                 -0.103803
+          ArenaLw                     -0.031133                 -0.099456
+          Ritual                      -0.000737                 -0.099047
+          Active                      -0.025880                 -0.093802
+          TranLw                      -0.117953                 -0.093474
+          AffGain                     -0.087547                 -0.090132
+          Quality                     -0.086726                 -0.077077
+          PowAren                     -0.006066                 -0.074293
+          Goal                         0.002702                 -0.073069
+          SklOth                      -0.043908                 -0.070185
+          ECON                         0.048534                 -0.069930
+          Vary                        -0.090580                 -0.068351
+          Perceiv                      0.013779                 -0.067191
+          Exert                       -0.049718                 -0.066668
+          RcRelig                      0.068811                 -0.066413
+          EnlTot                      -0.004552                 -0.064603
+          Nation                      -0.034774                 -0.064118
+          {\ldots}                               {\ldots}                       {\ldots}
+          COLOR                        0.011855                  0.069020
+          Causal                       0.059576                  0.070293
+          Submit                       0.023305                  0.070654
+          SureLw                       0.042558                  0.071009
+          SocRel                       0.093231                  0.074469
+          Ovrst                       -0.062614                  0.074653
+          Object                       0.049527                  0.074725
+          EnlEnds                     -0.036133                  0.074761
+          Negate                      -0.050025                  0.075079
+          Vice                         0.040346                  0.075109
+          PowPt                        0.034412                  0.075646
+          BldgPt                      -0.009141                  0.075940
+          Virtue                       0.070361                  0.078217
+          WlbTot                       0.049727                  0.081789
+          Finish                      -0.033782                  0.083533
+          Legal                        0.110797                  0.091369
+          BodyPt                       0.066114                  0.094620
+          WlbPt                       -0.019323                  0.097136
+          Role                         0.040183                  0.100924
+          WlbPhys                      0.052525                  0.101948
+          RcGain                       0.102445                  0.111073
+          RspTot                       0.094954                  0.129031
+          RcTot                        0.133761                  0.141772
+          RspLoss                      0.132951                  0.150262
+          Solve                        0.113938                  0.168368
+          RcEthic                      0.158520                  0.180070
+          If                           0.119748                  0.187929
+          Close Slope                  1.000000                  0.530988
+          Close Slope Differential     0.530988                  1.000000
+          OpenInt                           NaN                       NaN
+          
+          [192 rows x 2 columns]
+\end{Verbatim}
+            
+    \subsection{Notes}\label{notes}
+
+Weak Negative Correlation Between:
+
+Decreas* = Other process or change words. Words like depreciate, dwindle
+etc NotLw = words "that show the denial of one sort or another." AffTot*
+= Affection is the valuing of love and friendship Place = References to
+places, locations and routes between them. (?) TranLw = Words of
+transaction or exchange in a broad sense, but not necessarily of gain or
+loss. DIM* = Words relating to space and dimension; like big, breif,
+broad, considerable, endless, enormous POS = Words for position; Words
+like Adjascent, centre, follow, high TrnGain = General words of
+accomplishment; words like additon, acquire, affirm, bestow, broke,
+caught, clearence (?) Social* = Words for created locations that
+typically provide for social interaction and occupy limited space Try* =
+Indicating activities taken to reach a goal PowCon = Power conflict
+
+Weak Positive Correlation Between:
+
+RcEthic* = words of values concerning the social order. WltTran = Wealth
+transaction, 53 words for pursuit of wealth, such as buying and selling.
+Solve = words (mostly verbs) referring to the mental processes
+associated with problem solving. RcGain* = Rectitude gain, 30 words such
+as worship and forgiveness. RcTot* = Rectitude is concerned with moral
+value RspLoss* = Words for the losing of respect, such as shame (?) Exch
+= Words concerned with buying, selling and trading if* = Words "denoting
+feelings of uncertainty, doubt and vagueness." Travel = Words for all
+physical movement and travel from one place to another in a horizontal
+plane) Anomie = Words that usually show "a negation of value
+preference", nihilism, disappointment and futility.
+
+Also note that the volume is negatively correlated with slope.
+
+    \subsection{Machine Learning yay - Multinomial
+NB}\label{machine-learning-yay---multinomial-nb}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}218}]:} \PY{n}{merger}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bull}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{merger}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope Differential}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}219}]:} \PY{n}{train}\PY{p}{,} \PY{n}{test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{merger}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.25}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}220}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{naive\PYZus{}bayes} \PY{k}{import} \PY{n}{MultinomialNB}
+          
+          \PY{n}{train\PYZus{}X} \PY{o}{=} \PY{n}{train}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{9}\PY{p}{]}
+          \PY{n}{train\PYZus{}Y} \PY{o}{=} \PY{n}{train}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{clf} \PY{o}{=} \PY{n}{MultinomialNB}\PY{p}{(}\PY{n}{alpha} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}X}\PY{p}{,} \PY{n}{train\PYZus{}Y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}220}]:} MultinomialNB(alpha=1, class\_prior=None, fit\_prior=True)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}221}]:} \PY{n}{test\PYZus{}X} \PY{o}{=} \PY{n}{test}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{9}\PY{p}{]}
+          \PY{n}{test\PYZus{}Y} \PY{o}{=} \PY{n}{test}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{clf}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{test\PYZus{}X}\PY{p}{,} \PY{n}{test\PYZus{}Y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}221}]:} 0.5533980582524272
+\end{Verbatim}
+            
+    \subsection{Bernoulli Naive Bayes}\label{bernoulli-naive-bayes}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}222}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{naive\PYZus{}bayes} \PY{k}{import} \PY{n}{BernoulliNB}
+          
+          \PY{n}{train\PYZus{}X} \PY{o}{=} \PY{n}{train}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{9}\PY{p}{]}
+          \PY{n}{train\PYZus{}Y} \PY{o}{=} \PY{n}{train}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{clf} \PY{o}{=} \PY{n}{BernoulliNB}\PY{p}{(}\PY{n}{alpha} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{binarize} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}X}\PY{p}{,} \PY{n}{train\PYZus{}Y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}222}]:} BernoulliNB(alpha=1, binarize=1, class\_prior=None, fit\_prior=True)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}223}]:} \PY{n}{test\PYZus{}X} \PY{o}{=} \PY{n}{test}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{9}\PY{p}{]}
+          \PY{n}{test\PYZus{}Y} \PY{o}{=} \PY{n}{test}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{clf}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{test\PYZus{}X}\PY{p}{,} \PY{n}{test\PYZus{}Y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}223}]:} 0.5533980582524272
+\end{Verbatim}
+            
+    \subsection{Bernoulli Naive Bayes over multiple
+shifts}\label{bernoulli-naive-bayes-over-multiple-shifts}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}243}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{naive\PYZus{}bayes} \PY{k}{import} \PY{n}{BernoulliNB}
+          
+          \PY{n}{future\PYZus{}accuracy} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{range\PYZus{}val} \PY{o}{=} \PY{l+m+mi}{300} 
+          
+          \PY{k}{for} \PY{n}{future} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{range\PYZus{}val}\PY{p}{)}\PY{p}{:}
+          
+              \PY{n}{merger}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bull\PYZus{}tomorrow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{merger}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bull}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shift}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{future}\PY{p}{)}
+              \PY{n}{train}\PY{p}{,} \PY{n}{test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{merger}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.35}\PY{p}{)}
+          
+              \PY{n}{train\PYZus{}X} \PY{o}{=} \PY{n}{train}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{9}\PY{p}{]}
+              \PY{n}{train\PYZus{}Y} \PY{o}{=} \PY{n}{train}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+              \PY{n}{clf} \PY{o}{=} \PY{n}{BernoulliNB}\PY{p}{(}\PY{n}{alpha} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{binarize} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+              \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}X}\PY{p}{,} \PY{n}{train\PYZus{}Y}\PY{p}{)}
+          
+              \PY{n}{test\PYZus{}X} \PY{o}{=} \PY{n}{test}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{9}\PY{p}{]}
+              \PY{n}{test\PYZus{}Y} \PY{o}{=} \PY{n}{test}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+              \PY{n}{future\PYZus{}accuracy}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{clf}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{test\PYZus{}X}\PY{p}{,} \PY{n}{test\PYZus{}Y}\PY{p}{)}\PY{p}{)}
+          
+          
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Major ticks every 20, minor ticks every 5}
+          \PY{n}{major\PYZus{}ticks} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{101}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)}
+          \PY{n}{minor\PYZus{}ticks} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{101}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+          
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{major\PYZus{}ticks}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{minor\PYZus{}ticks}\PY{p}{,} \PY{n}{minor}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{n}{major\PYZus{}ticks}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{n}{minor\PYZus{}ticks}\PY{p}{,} \PY{n}{minor}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} And a corresponding grid}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{which}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Or if you want different settings for the grids:}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{which}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{minor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{which}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{major}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}plt.show()}
+          
+          \PY{c+c1}{\PYZsh{}plt.grid(which=\PYZsq{}both\PYZsq{})}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{range\PYZus{}val}\PY{p}{)}\PY{p}{,} \PY{n}{future\PYZus{}accuracy}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}243}]:} [<matplotlib.lines.Line2D at 0x7f7e7ddf0828>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_69_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    A decreasing accuracy as we attempt to predict further into the future
+is \emph{not} observed. The chart appears to be fairly random. Although,
+there does appear to be a pattern here. Let's investigate
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}254}]:} \PY{k}{def} \PY{n+nf}{autocorr}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{t}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{]}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{n}{t}\PY{p}{:}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{autocorr}\PY{p}{(}\PY{n}{future\PYZus{}accuracy}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}254}]:} array([[1.        , 0.77339569],
+                 [0.77339569, 1.        ]])
+\end{Verbatim}
+            
+    There is a strong 7-interval periodicity in the accuracy of the model.
+Predicting the Bull/Bear of every t + 7th day, given the sentiments of
+t, is surprisingly accurate. Maybe autocorrelation in the slope
+differential needs to be investigated?
+
+    \subsection{Investigating periodicity in
+slopes}\label{investigating-periodicity-in-slopes}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}302}]:} \PY{n}{corrs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+              \PY{n}{corrs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{autocorr}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{merger}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope Differential}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{t}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}305}]:} \PY{n}{corrs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+              \PY{n}{corrs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{autocorr}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{merger}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{t}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}306}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{which}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{corrs}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}306}]:} [<matplotlib.lines.Line2D at 0x7f7e7d5006d8>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_76_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Multivariate Regression}\label{multivariate-regression}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}441}]:} \PY{n}{merger}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}441}]:}             ABS  ANI  Abs@  Academ  Active  AffGain  AffLoss  AffOth  AffPt  \textbackslash{}
+          Date                                                                          
+          2006-10-20  0.0  0.0   0.0     0.0     0.0      0.0      0.0     0.0    0.0   
+          2006-10-30  0.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+          2006-11-01  0.0  0.0   0.0     0.0     1.0      0.0      0.0     0.0    0.0   
+          2006-11-13  1.0  0.0   0.0     1.0     2.0      0.0      1.0     0.0    0.0   
+          2006-11-20  1.0  0.0   0.0     0.0     2.0      0.0      0.0     0.0    0.0   
+          
+                      AffTot      {\ldots}          Open    High     Low   Close  \textbackslash{}
+          Date                    {\ldots}                                         
+          2006-10-20     0.0      {\ldots}        38.172  38.210  37.809  38.135   
+          2006-10-30     0.0      {\ldots}        38.280  38.725  38.188  38.569   
+          2006-11-01     0.0      {\ldots}        38.799  38.835  37.976  38.135   
+          2006-11-13     1.0      {\ldots}        39.083  39.529  39.037  39.464   
+          2006-11-20     0.0      {\ldots}        40.094  40.386  39.960  40.306   
+          
+                           Volume  OpenInt  Close Slope  Close Slope Differential  \textbackslash{}
+          Date                                                                      
+          2006-10-20  116136535.0      0.0    -4.308868                  0.665084   
+          2006-10-30  114432024.0      0.0     1.792000                  0.792157   
+          2006-11-01  164049904.0      0.0    -3.402973                 -3.257204   
+          2006-11-13   98192406.0      0.0     5.229982                 -1.516541   
+          2006-11-20  118051228.0      0.0     9.051713                  4.370242   
+          
+                       bull  bull\_tomorrow  
+          Date                              
+          2006-10-20   True           True  
+          2006-10-30   True          False  
+          2006-11-01  False           True  
+          2006-11-13  False          False  
+          2006-11-20   True          False  
+          
+          [5 rows x 194 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}451}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{smf}\PY{o}{.}\PY{n}{ols}\PY{p}{(}\PY{n}{formula}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Close \PYZti{} Open}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{merger}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                  Close   R-squared:                       0.998
+Model:                            OLS   Adj. R-squared:                  0.998
+Method:                 Least Squares   F-statistic:                 3.713e+05
+Date:                Mon, 16 Apr 2018   Prob (F-statistic):               0.00
+Time:                        15:41:40   Log-Likelihood:                -614.52
+No. Observations:                 880   AIC:                             1233.
+Df Residuals:                     878   BIC:                             1243.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      0.0157      0.096      0.163      0.870      -0.173       0.204
+Open           1.0000      0.002    609.378      0.000       0.997       1.003
+==============================================================================
+Omnibus:                       23.462   Durbin-Watson:                   2.021
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               34.484
+Skew:                          -0.249   Prob(JB):                     3.25e-08
+Kurtosis:                       3.832   Cond. No.                         342.
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}448}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{merger}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}448}]:} 1247
+\end{Verbatim}
+            
+    \subsection{Rename Column names for
+Statsmodel}\label{rename-column-names-for-statsmodel}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}568}]:} \PY{n}{merger} \PY{o}{=} \PY{n}{merger}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope Differential}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CloseSlopeDifferential}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CloseSlope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Open Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OpenSlope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HighSlope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Low Slope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LowSlope}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}569}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{smf}\PY{o}{.}\PY{n}{ols}\PY{p}{(}\PY{n}{formula}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OpenSlope \PYZti{} }\PY{l+s+s2}{\PYZdq{}}
+                                \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Decreas + NotLw + AffTot + PLACE + TranLw + DIM + POS + TrnGain + Social + Try + PowCon +}\PY{l+s+s2}{\PYZdq{}}
+                                \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RcEthic + WltTran + Solve + RcGain + RcTot + RspLoss + If + Exch + Travel + Anomie +}\PY{l+s+s2}{\PYZdq{}}
+                                \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Begin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{merger}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:              OpenSlope   R-squared:                       0.038
+Model:                            OLS   Adj. R-squared:                  0.013
+Method:                 Least Squares   F-statistic:                     1.535
+Date:                Mon, 16 Apr 2018   Prob (F-statistic):             0.0550
+Time:                        23:20:34   Log-Likelihood:                -2169.0
+No. Observations:                 880   AIC:                             4384.
+Df Residuals:                     857   BIC:                             4494.
+Df Model:                          22                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      0.5518      0.328      1.681      0.093      -0.093       1.196
+Decreas        0.7786      1.073      0.725      0.468      -1.328       2.886
+NotLw         -3.9492      3.682     -1.073      0.284     -11.176       3.277
+AffTot        -0.7590      0.954     -0.796      0.426      -2.631       1.113
+PLACE         -1.1716      0.663     -1.767      0.078      -2.473       0.130
+TranLw        -0.6268      0.780     -0.803      0.422      -2.159       0.905
+DIM           -0.7830      1.865     -0.420      0.675      -4.443       2.877
+POS            1.9657      1.016      1.935      0.053      -0.028       3.959
+TrnGain       -0.5464      0.982     -0.557      0.578      -2.473       1.380
+Social         2.0608      0.954      2.160      0.031       0.188       3.933
+Try           -1.5551      0.900     -1.728      0.084      -3.322       0.212
+PowCon         0.1687      0.944      0.179      0.858      -1.684       2.021
+RcEthic       -1.6806      2.315     -0.726      0.468      -6.224       2.863
+WltTran        1.7816      1.396      1.276      0.202      -0.959       4.522
+Solve          1.0233      0.747      1.370      0.171      -0.443       2.489
+RcGain        -0.5462      4.891     -0.112      0.911     -10.145       9.053
+RcTot          1.3840      1.802      0.768      0.443      -2.152       4.920
+RspLoss        1.6010      3.875      0.413      0.680      -6.005       9.207
+If             0.9636      0.810      1.190      0.234      -0.625       2.552
+Exch          -0.9802      1.371     -0.715      0.475      -3.672       1.712
+Travel         1.3469      0.697      1.933      0.054      -0.021       2.715
+Anomie        19.8313     15.540      1.276      0.202     -10.669      50.332
+Begin         -3.6669      1.443     -2.541      0.011      -6.499      -0.835
+==============================================================================
+Omnibus:                       45.319   Durbin-Watson:                   0.959
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              128.111
+Skew:                           0.191   Prob(JB):                     1.52e-28
+Kurtosis:                       4.830   Cond. No.                         187.
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}522}]:} \PY{n}{merger}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Exch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CloseSlopeShift}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}522}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f7e616aa320>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_84_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}504}]:} \PY{p}{[}\PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{merger}\PY{o}{.}\PY{n}{columns}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ABS
+ANI
+Abs@
+Academ
+Active
+AffGain
+AffLoss
+AffOth
+AffPt
+AffTot
+Affil
+Anomie
+Aquatic
+ArenaLw
+Arousal
+Begin
+BldgPt
+BodyPt
+CARD
+COLL
+COLOR
+COM
+Causal
+ComForm
+ComnObj
+Compare
+Complet
+DAV
+DIM
+DIST
+Decreas
+Doctrin
+ECON
+EMOT
+EVAL
+Econ@
+EndsLw
+EnlEnds
+EnlGain
+EnlLoss
+EnlOth
+EnlPt
+EnlTot
+Entry
+Eval@
+Exch
+Exert
+Exprsv
+FREQ
+Fail
+Fall
+Feel
+Female
+Fetch
+Finish
+Food
+FormLw
+Goal
+HU
+Hostile
+IAV
+IPadj
+If
+Increas
+IndAdj
+Intrj
+Kin@
+Know
+Land
+Legal
+MALE
+Means
+MeansLw
+Milit
+NUMB
+Name
+NatObj
+Nation
+NatrPro
+Need
+NegAff
+Negate
+Negativ
+Ngtv
+No
+Nonadlt
+NotLw
+ORD
+Object
+Ought
+Our
+Ovrst
+PLACE
+POLIT
+POS
+Pain
+Passive
+Perceiv
+Persist
+Pleasur
+Polit@
+PosAff
+Positiv
+PowAren
+PowAuPt
+PowAuth
+PowCon
+PowCoop
+PowDoct
+PowEnds
+PowGain
+PowLoss
+PowOth
+PowPt
+PowTot
+Power
+Pstv
+PtLw
+Quality
+Quan
+Race
+RcEnds
+RcEthic
+RcGain
+RcLoss
+RcRelig
+RcTot
+Region
+Rel
+Relig
+Rise
+Ritual
+Role
+Route
+RspGain
+RspLoss
+RspOth
+RspTot
+SV
+Say
+Self
+SklAsth
+SklOth
+SklPt
+SklTot
+Sky
+SocRel
+Social
+Solve
+Space
+Stay
+Strong
+Submit
+SureLw
+TIME
+Think
+Time@
+TimeSpc
+Tool
+TranLw
+Travel
+TrnGain
+TrnLoss
+Try
+Undrst
+Vary
+Vehicle
+Vice
+Virtue
+Weak
+WlbGain
+WlbLoss
+WlbPhys
+WlbPsyc
+WlbPt
+WlbTot
+WltOth
+WltPt
+WltTot
+WltTran
+Word
+Work
+Yes
+You
+Open
+High
+Low
+Close
+Volume
+OpenInt
+CloseSlope
+CloseSlopeDifferential
+bull
+bull\_tomorrow
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}504}]:} [None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None,
+           None]
+\end{Verbatim}
+            
+    \subsection{Scatter Plots of the highest and lowest Regression
+Coefficients}\label{scatter-plots-of-the-highest-and-lowest-regression-coefficients}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}556}]:} \PY{n}{merger}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{merger}\PY{o}{.}\PY{n}{index}\PY{o}{\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2013}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WltTran}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DIM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}556}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f7e614ff8d0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_87_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Scatter Plots of Statistically Significant
+Coefficients}\label{scatter-plots-of-statistically-significant-coefficients}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}560}]:} \PY{n}{merger}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{merger}\PY{o}{.}\PY{n}{index}\PY{o}{\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2013}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WltTran}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Exch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}560}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f7e6132e048>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_89_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

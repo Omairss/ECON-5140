@@ -1,0 +1,10 @@
+Age (X3)  0.29** (0.04) 0.29** (0.04)
+{err}command {bf}Age{sf} is unrecognized
+{txt}{search r(199), local:r(199);}
+
+{com}. 0) Midwest (X5)   0.60* (0.28) South (X6)   −0.27 (0.26) Intercept 12.69** (0.14) 4.40** (1.05) 3.75** (1.06)
+
+. ommand {bf}Female{sf} is unrecognized
+{txt}{search r(199), local:r(199);}
+
+{com}. 
